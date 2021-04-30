@@ -150,6 +150,7 @@ class GrapherWidget(QtWidgets.QMainWindow):
         func_figure_canvas = FigureCanvas(Figure(figsize=(5, 3)))
         self.addToolBar(NavigationToolbar(func_figure_canvas, self))
         self._func_ax = func_figure_canvas.figure.subplots()
+        self._func_ax.grid(b=True, which="both", axis="both")
         (self._func_line,) = self._func_ax.plot(np.zeros(0), np.zeros(0))
 
         # Maerge the input layout and the Canvas
@@ -244,6 +245,11 @@ class GrapherWidget(QtWidgets.QMainWindow):
             self.error_label.setText(str(err))
             is_valid = False
         self.func_combo_box.setPalette(palette)
+
+        # Skip calculations, because of invalid input
+        if not is_valid:
+            self.setUpdatesEnabled(True)
+            return
 
         # Evaluate the Expression Tree in a background thread and conect it to
         # callback functions to update results and display errors

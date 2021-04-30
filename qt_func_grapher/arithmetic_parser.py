@@ -291,7 +291,10 @@ class ArithmeticParser:
         self.ast = ast
 
     def evaluate(self, x):
-        return self.ast.evaluate(x)
+        if self.ast:
+            return self.ast.evaluate(x)
+        else:
+            raise ValueError("You have to correctly parse the expression first")
 
 
 # def eval_expression(expression, x):
