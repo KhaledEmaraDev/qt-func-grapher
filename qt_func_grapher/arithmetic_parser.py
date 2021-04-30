@@ -204,18 +204,18 @@ class ArithmeticParser:
 
         # Wrap ^ first
         pow_indices = [i for i, el in enumerate(self.lexems) if el == "^"]
-        for index in pow_indices:
-            self._insertParanthesesAround(index)
+        for i in range(len(pow_indices)):
+            self._insertParanthesesAround(pow_indices[i] + 2 * i)
 
         # Wrap *,/ second
         mul_indices = [i for i, el in enumerate(self.lexems) if el in ["*", "/"]]
-        for index in mul_indices:
-            self._insertParanthesesAround(index)
+        for i in range(len(mul_indices)):
+            self._insertParanthesesAround(mul_indices[i] + 2 * i)
 
         # Wrap +,- last (optional)
         add_indices = [i for i, el in enumerate(self.lexems) if el in ["+", "-"]]
-        for index in add_indices:
-            self._insertParanthesesAround(index)
+        for i in range(len(add_indices)):
+            self._insertParanthesesAround(add_indices[i] + 2 * i)
 
     def _tockenize(self):
         """Split the string into lexemes
